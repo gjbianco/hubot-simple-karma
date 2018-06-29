@@ -27,8 +27,8 @@ module.exports = (robot) => {
     if (name) {
       res.send(formatKarma(name, karmas[name]))
     } else {
-      let kTable = createTable()
-      let topList = _.chain(karmas)
+      const kTable = createTable()
+      const topList = _.chain(karmas)
                      .toPairs()
                      .orderBy('1', 'desc')
                      .slice(0, 10)
