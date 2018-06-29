@@ -33,9 +33,7 @@ module.exports = (robot) => {
                      .orderBy('1', 'desc')
                      .slice(0, 10)
                      .value()
-      _.each(topList, (row) => {
-        kTable.push(row)
-      })
+      _.each(topList, (row) => kTable.push(row))
       res.send('top ten:\n' + kTable.toString())
     }
   })
