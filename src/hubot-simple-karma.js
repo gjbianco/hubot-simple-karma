@@ -11,7 +11,7 @@ module.exports = (robot) => {
   }
 
   function closeKarmas (karmas) {
-    robot.brain.set(KARMA_PREFIX, JSON.stringify(karmas))
+    robot.brain.set(KARMA_PREFIX, karmas)
   }
 
   function formatKarma (name, karma) {
