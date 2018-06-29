@@ -25,7 +25,7 @@ module.exports = (robot) => {
     const name = res.match[1]
     const karmas = openKarmas()
     let val = karmas[name] || 0
-    val += res.match[1] === '++' ? 1 : -1
+    val += res.match[2] === '++' ? 1 : -1
     if (val) {
       karmas[name] = val
     } else {
