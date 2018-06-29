@@ -43,7 +43,7 @@ module.exports = (robot) => {
     } else {
       let kTable = 'karmas:\n'
       for (let k in karmas) {
-        kTable += `${k}: ${karmas[k]}`
+        kTable += `${k}: ${karmas[k]}\n`
       }
       res.send(kTable)
     }
