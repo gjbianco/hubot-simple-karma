@@ -24,7 +24,7 @@ module.exports = (robot) => {
   robot.hear(/^(\w+)(\+\+|--)$/i, (res) => {
     const name = res.match[1]
     const karmas = openKarmas()
-    const val = karmas[name] || 0
+    let val = karmas[name] || 0
     val += res.match[1] === '++' ? 1 : -1
     if (val) {
       karmas[name] = val
