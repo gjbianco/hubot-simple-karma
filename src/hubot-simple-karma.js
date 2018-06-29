@@ -20,7 +20,7 @@ module.exports = (robot) => {
     return `${name} has ${karma || 'no'} karma`
   }
 
-  robot.hear(/^([@\w ]+)(\+\+|--)$/i, (res) => {
+  robot.hear(/^(.+)(\+\+|--)$/i, (res) => {
     const name = res.match[1].trim()
     const karmas = openKarmas()
     let val = karmas[name] || 0
