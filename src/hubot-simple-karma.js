@@ -18,7 +18,7 @@ module.exports = (robot) => {
   }
 
   function formatKarma (name, karma) {
-    return `${name} has ${karma} karma`
+    return `${name} has ${karma || 'no'} karma`
   }
 
   robot.hear(/^(\w+)(\+\+|--)$/i, (res) => {
@@ -32,7 +32,7 @@ module.exports = (robot) => {
       delete karmas[name]
     }
     closeKarmas(karmas)
-    res.send(name, karmas[name])
+    res.send(formatKarma(name, karmas[name]))
   })
 
   robot.hear(/^!karma(?: (\w+))?$/i, (res) => {
