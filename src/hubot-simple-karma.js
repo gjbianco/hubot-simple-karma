@@ -34,7 +34,7 @@ module.exports = (robot) => {
     res.send(formatKarma(name, karmas[name]))
   })
 
-  robot.hear(/^!karma(?: (\w+))?$/i, (res) => {
+  robot.hear(/^!karma(?: (.+))?$/i, (res) => {
     const name = res.match[1]
     const karmas = openKarmas()
     if (name) {
