@@ -1,5 +1,4 @@
 const _ = require('lodash')
-const Table = require('cli-table')
 
 const KARMA_PREFIX = process.env.HUBOT_KARMA_PREFIX || 'hubot-simple-karma'
 
@@ -27,14 +26,16 @@ module.exports = (robot) => {
     if (name) {
       res.send(formatKarma(name, karmas[name]))
     } else {
-      const kTable = createTable()
+      let kTable = ''
       const topList = _.chain(karmas)
-                     .toPairs()
-                     .orderBy('1', 'desc')
-                     .slice(0, 10)
-                     .value()
-      _.each(topList, (row) => kTable.push(row))
-      res.send('top ten:\n' + kTable.toString())
+                       .toPairs()
+                       .orderBy('1', 'desc')
+                       .slice(0, 10)
+                       .value()
+      _.each(topList, (row, index) => {
+        kTable += `\t${index + 1}: (${row[1]})\t${row[0]}\n`
+      })
+      res.send('top ten:\n' + kTable)
     }
   })
 
@@ -50,28 +51,6 @@ module.exports = (robot) => {
 
   function formatKarma (name, karma) {
     return `${name} has ${karma || 'no'} karma`
-  }
-
-  function createTable() {
-    return new Table({
-      chars: {
-        'top': '-',
-        'top-mid': '-',
-        'top-left': '+',
-        'top-right': '+',
-        'bottom': '-',
-        'bottom-mid': '-',
-        'bottom-left': '+',
-        'bottom-right': '+',
-        'left': '|',
-        'left-mid': '|',
-        'mid': '-',
-        'mid-mid': '+',
-        'right': '|',
-        'right-mid': '|',
-        'middle': '|'
-      }
-    })
   }
 
   // initialize data, if necessary

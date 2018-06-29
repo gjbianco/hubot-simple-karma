@@ -10,7 +10,6 @@
   "author": "Guy Bianco IV <gjbiancoiv@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "cli-table": "^0.3.1",
     "lodash": "^4.17.10"
   }
 }
