@@ -2,8 +2,10 @@ const KARMA_PREFIX = process.env.HUBOT_KARMA_PREFIX || 'hubot-simple-karma'
 
 module.exports = (robot) => {
 
-  if (!robot.brain.get(KARMA_PREFIX)) {
-    robot.brain.set(KARMA_PREFIX, {})
+  if (!openKarmas()) {
+    closeKarmas({
+      nobody: 1
+    })
   }
 
   function openKarmas () {
