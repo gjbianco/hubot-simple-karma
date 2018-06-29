@@ -1,0 +1,12 @@
+{
+  "name": "hubot-simple-karma",
+  "version": "1.0.0",
+  "description": "simple karma tracking",
+  "main": "index.js",
+  "repository": "https://github.com/gjbianco/hubot-simple-karma",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Guy Bianco IV <gjbiancoiv@gmail.com>",
+  "license": "MIT"
+}
