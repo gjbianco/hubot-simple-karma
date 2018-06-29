@@ -1,24 +1,11 @@
+const _ = require('lodash')
+const Table = require('cli-table')
+
 const KARMA_PREFIX = process.env.HUBOT_KARMA_PREFIX || 'hubot-simple-karma'
 
 module.exports = (robot) => {
 
-  if (!openKarmas()) {
-    closeKarmas({
-      nobody: 1
-    })
-  }
-
-  function openKarmas () {
-    return robot.brain.get(KARMA_PREFIX)
-  }
-
-  function closeKarmas (karmas) {
-    robot.brain.set(KARMA_PREFIX, karmas)
-  }
-
-  function formatKarma (name, karma) {
-    return `${name} has ${karma || 'no'} karma`
-  }
+  // chat hooks -------------------------------
 
   robot.hear(/^(.+)(\+\+|--)$/i, (res) => {
     const name = res.match[1].trim()
@@ -40,12 +27,60 @@ module.exports = (robot) => {
     if (name) {
       res.send(formatKarma(name, karmas[name]))
     } else {
-      let kTable = 'karmas:\n'
-      for (let k in karmas) {
-        kTable += `${k}: ${karmas[k]}\n`
-      }
-      res.send(kTable)
+      let kTable = createTable()
+      let topList = _.chain(karmas)
+                     .toPairs()
+                     .orderBy('1', 'desc')
+                     .slice(0, 10)
+                     .value()
+      _.each(topList, (row) => {
+        kTable.push(row)
+      })
+      res.send('top ten:\n' + kTable.toString())
     }
   })
+
+  // utility functions ---------------------------
+
+  function openKarmas () {
+    return robot.brain.get(KARMA_PREFIX)
+  }
+
+  function closeKarmas (karmas) {
+    robot.brain.set(KARMA_PREFIX, karmas)
+  }
+
+  function formatKarma (name, karma) {
+    return `${name} has ${karma || 'no'} karma`
+  }
+
+  function createTable() {
+    return new Table({
+      chars: {
+        'top': '-',
+        'top-mid': '-',
+        'top-left': '+',
+        'top-right': '+',
+        'bottom': '-',
+        'bottom-mid': '-',
+        'bottom-left': '+',
+        'bottom-right': '+',
+        'left': '|',
+        'left-mid': '|',
+        'mid': '-',
+        'mid-mid': '+',
+        'right': '|',
+        'right-mid': '|',
+        'middle': '|'
+      }
+    })
+  }
+
+  // initialize data, if necessary
+  if (!openKarmas()) {
+    closeKarmas({
+      nobody: 1
+    })
+  }
 
 }
