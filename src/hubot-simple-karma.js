@@ -1,10 +1,11 @@
-const KARMA_PREFIX = process.env.HUBOT_KARMA_PREFIX || 'hubot-karma'
+const KARMA_PREFIX = process.env.HUBOT_KARMA_PREFIX || 'hubot-simple-karma'
 
-(function init () {
+function init () {
   if (!robot.brain.get(KARMA_PREFIX)) {
     robot.brain.set(KARMA_PREFIX, JSON.stringify({}))
   }
-})()
+}
+init()
 
 function openKarmas () {
   return JSON.parse(robot.brain.get(KARMA_PREFIX))
