@@ -20,8 +20,8 @@ module.exports = (robot) => {
     return `${name} has ${karma || 'no'} karma`
   }
 
-  robot.hear(/^([@\w]+)(\+\+|--)$/i, (res) => {
-    const name = res.match[1]
+  robot.hear(/^([@\w ]+)(\+\+|--)$/i, (res) => {
+    const name = res.match[1].trim()
     const karmas = openKarmas()
     let val = karmas[name] || 0
     val += res.match[2] === '++' ? 1 : -1
