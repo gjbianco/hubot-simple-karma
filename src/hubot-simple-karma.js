@@ -8,13 +8,13 @@ module.exports = robot => {
   robot.hear(/^(.+)(\+\+|--)$/i, res => {
     const name = res.match[1];
     const amount = res.match[2] === '++' ? 1 : -1;
-    changeKarma(name, amount);
+    res.send(changeKarma(name, amount));
   });
 
   robot.hear(/^(.+?)([+-]\d)$/i, res => {
     const name = res.match[1];
     const amount = parseInt(res.match[2], 10);
-    changeKarma(name, amount);
+    res.send(changeKarma(name, amount));
   });
 
   robot.hear(/^!karma(?: (.+))?$/i, res => {
@@ -51,7 +51,7 @@ module.exports = robot => {
     }
 
     closeKarmas(karmas);
-    res.send(formatKarma(name, karmas[name]));
+    return formatKarma(name, karmas[name]);
   }
 
   function openKarmas() {
