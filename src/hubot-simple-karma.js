@@ -38,7 +38,7 @@ module.exports = robot => {
 
   // utility functions ---------------------------
 
-  function changeKarma(name, isPositive, amount) {
+  function changeKarma(name, amount) {
     const karmas = openKarmas();
 
     name = name.trim();
